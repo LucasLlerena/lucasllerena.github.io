@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucas Llerena — AI Product Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f7f4ee;
+    --ink: #1c1a17;
+    --ink-dim: #5b564e;
+    --ink-faint: #8d8779;
+    --oxblood: #6d1f2c;
+    --rule: #1c1a17;
+    --rule-soft: #ddd8cd;
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'Inter', -apple-system, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font: 16px/1.7 var(--sans); -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 28px; }
+
+  .topbar {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 26px 0 18px; border-bottom: 2.5px solid var(--rule);
+    font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+  }
+  .topbar a { color: var(--ink); text-decoration: none; }
+  .topbar a:hover { color: var(--oxblood); }
+  .topbar nav { display: flex; gap: 26px; }
+
+  header.hero { padding: 88px 0 72px; border-bottom: 1px solid var(--rule-soft); }
+  .kicker {
+    font-size: 12px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--oxblood); margin-bottom: 26px;
+  }
+  h1 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(44px, 7.4vw, 84px); line-height: 1.04; letter-spacing: -0.015em;
+    max-width: 820px;
+  }
+  h1 em { font-style: italic; font-weight: 400; color: var(--oxblood); }
+  .hero .sub {
+    margin-top: 34px; max-width: 600px;
+    font-size: 19px; line-height: 1.65; color: var(--ink-dim);
+  }
+  .hero .sub strong { color: var(--ink); font-weight: 600; }
+  .meta-row {
+    margin-top: 44px; padding-top: 22px; border-top: 1px solid var(--rule-soft);
+    display: flex; flex-wrap: wrap; gap: 8px 40px;
+    font-size: 13px; color: var(--ink-faint);
+  }
+  .meta-row b { color: var(--ink); font-weight: 600; }
+  .cta { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 14px; }
+  .btn {
+    font-size: 13px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+    text-decoration: none; padding: 15px 30px; transition: all .2s ease;
+  }
+  .btn-solid { background: var(--ink); color: var(--paper); }
+  .btn-solid:hover { background: var(--oxblood); }
+  .btn-line { color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); }
+  .btn-line:hover { color: var(--oxblood); box-shadow: inset 0 0 0 1.5px var(--oxblood); }
+
+  section { padding: 76px 0; }
+  .sec-head { display: baseline; border-bottom: 2.5px solid var(--rule); padding-bottom: 14px; margin-bottom: 0; }
+  .sec-head h2 {
+    font-family: var(--serif); font-weight: 500; font-size: clamp(28px, 4vw, 40px);
+  }
+
+  .piece { padding: 42px 0; border-bottom: 1px solid var(--rule-soft); display: grid; grid-template-columns: 1fr 2fr; gap: 30px; }
+  .piece .side .name { font-family: var(--serif); font-size: 26px; font-weight: 500; }
+  .piece .side .status {
+    margin-top: 10px; font-size: 11px; font-weight: 600; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--oxblood);
+  }
+  .piece .body p { color: var(--ink-dim); }
+  .piece .body p strong { color: var(--ink); font-weight: 600; }
+  .piece .tech { margin-top: 16px; font-size: 12.5px; letter-spacing: .05em; color: var(--ink-faint); }
+  .piece a { color: var(--oxblood); text-decoration: none; font-weight: 600; font-size: 14px; }
+  .piece a:hover { text-decoration: underline; }
+
+  .tenets { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 34px; padding-top: 44px; }
+  .tenet .num { font-family: var(--serif); font-style: italic; font-size: 19px; color: var(--oxblood); margin-bottom: 10px; }
+  .tenet h4 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .tenet p { font-size: 14.5px; color: var(--ink-dim); }
+
+  footer { border-top: 2.5px solid var(--rule); padding: 76px 0 90px; }
+  footer h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(32px, 5vw, 52px); max-width: 700px; }
+  footer h2 em { font-style: italic; color: var(--oxblood); }
+  footer .sub { margin: 22px 0 40px; color: var(--ink-dim); }
+  .foot-note { margin-top: 64px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-faint); }
+
+  @media (max-width: 680px) {
+    header.hero { padding: 56px 0 48px; }
+    section { padding: 52px 0; }
+    .piece { grid-template-columns: 1fr; gap: 12px; }
+    .topbar nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="topbar">
+    <span>Lucas Llerena</span>
+    <nav>
+      <a href="#work">Work</a>
+      <a href="cv.pdf">CV</a>
+      <a href="mailto:llerenalucas@gmail.com">Contact</a>
+    </nav>
+  </div>
+
+  <header class="hero">
+    <div class="kicker">AI Product Engineer — Rio de Janeiro</div>
+    <h1>Products, not prototypes.<br><em>Shipped, not promised.</em></h1>
+    <p class="sub">Ten years running operations, teams and seven-figure budgets.
+    Now I design, build and sell <strong>AI products end-to-end</strong> — architecture,
+    security, licensing, distribution, and the customer conversations in between.</p>
+    <div class="meta-row">
+      <span><b>Citizenship</b> — French &amp; Brazilian (EU + BR work rights)</span>
+      <span><b>Languages</b> — EN · FR · PT · ES</span>
+      <span><b>Timezone</b> — GMT−3, US-friendly</span>
+    </div>
+    <div class="cta">
+      <a class="btn btn-solid" href="mailto:llerenalucas@gmail.com">Get in touch</a>
+      <a class="btn btn-line" href="cv.pdf">Curriculum Vitae</a>
+    </div>
+  </header>
+
+  <section id="work">
+    <div class="sec-head"><h2>Selected Work</h2></div>
+
+    <div class="piece">
+      <div class="side">
+        <div class="name">ListPro</div>
+        <div class="status">In production · paid trial</div>
+      </div>
+      <div class="body">
+        <p>Listing-generation SaaS for Brazilian marketplaces. Sellers import a catalog and receive
+        marketplace-compliant listings backed by <strong>verified compatibility data — the system
+        never invents facts</strong>. Server-side LLM proxy, hardware-bound RS256 licensing,
+        standalone distribution.</p>
+        <div class="tech">Python · Flask · JWT/RS256 · LLM APIs · PyInstaller · Railway</div>
+      </div>
+    </div>
+
+    <div class="piece">
+      <div class="side">
+        <div class="name">RadarGov</div>
+        <div class="status">Sold as monthly license</div>
+      </div>
+      <div class="body">
+        <p>Desktop intelligence tool monitoring government procurement through public APIs,
+        classifying tenders by relevance so suppliers find contracts they would never see manually.
+        Licensing server, signed offline cache, silent auto-update.</p>
+        <div class="tech">Python · pywebview · PostgreSQL · Render · PyInstaller</div>
+      </div>
+    </div>
+
+    <div class="piece" style="border-bottom:none">
+      <div class="side">
+        <div class="name">video-edit-agent</div>
+        <div class="status">Open source</div>
+      </div>
+      <div class="body">
+        <p>Automated editing pipeline: raw footage to finished short-form video in six steps —
+        local transcription, filler removal, captions, music, export. <strong>Cuts raw runtime 44%</strong>
+        at zero cloud cost.</p>
+        <div class="tech">Python · ffmpeg · Whisper · GitHub Actions</div>
+        <p style="margin-top:12px"><a href="https://github.com/LucasLlerena/video-edit-agent">View source →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top: 0">
+    <div class="sec-head"><h2>Approach</h2></div>
+    <div class="tenets">
+      <div class="tenet">
+        <div class="num">i.</div>
+        <h4>Ship the unglamorous 80%</h4>
+        <p>Licensing, security, packaging, updates — the distance between a demo and a product someone pays for.</p>
+      </div>
+      <div class="tenet">
+        <div class="num">ii.</div>
+        <h4>Business first, code second</h4>
+        <p>Business degree, ten years of P&amp;L responsibility. The problem gets understood before the solution gets written.</p>
+      </div>
+      <div class="tenet">
+        <div class="num">iii.</div>
+        <h4>Four languages, three markets</h4>
+        <p>Client-facing in English, French, Portuguese and Spanish, across EU, US and LATAM hours.</p>
+      </div>
+      <div class="tenet">
+        <div class="num">iv.</div>
+        <h4>Agent-driven by default</h4>
+        <p>Daily workflow built on agentic tooling — systems shipped the way I work: end-to-end, automated, verified.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <h2>The next thing I ship<br><em>could be yours.</em></h2>
+    <p class="sub">Remote-first · Forward Deployed, Solutions &amp; AI Engineering roles</p>
+    <div class="cta">
+      <a class="btn btn-solid" href="mailto:llerenalucas@gmail.com">llerenalucas@gmail.com</a>
+      <a class="btn btn-line" href="https://github.com/LucasLlerena">GitHub</a>
+      <a class="btn btn-line" href="https://www.linkedin.com/in/lucasllerena">LinkedIn</a>
+    </div>
+    <p class="foot-note">Lucas Davée Guimarães Llerena · Rio de Janeiro · 2026</p>
+  </div>
+</footer>
+
+</body>
+</html>

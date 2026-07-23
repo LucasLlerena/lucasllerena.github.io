@@ -4,174 +4,100 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lucas Llerena — AI Product Engineer</title>
-<meta name="description" content="AI Product Engineer. I build and ship AI products end-to-end: SaaS, desktop apps, autonomous agents. Python · LLM systems · 4 languages.">
+<meta name="description" content="AI Product Engineer. Two commercial products shipped solo — architecture, security, licensing, distribution. EN · FR · PT · ES.">
 <meta property="og:title" content="Lucas Llerena — AI Product Engineer">
-<meta property="og:description" content="I build and ship AI products end-to-end: SaaS, desktop, agents.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<meta property="og:description" content="Software that earns its keep, shipped alone.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23101010'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-style='italic' font-size='34' fill='%23c2a15c' text-anchor='middle'%3ELL%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #08080d;
-    --bg-soft: #0d0d15;
-    --card: #10101a;
-    --card-border: #1d1d2b;
-    --card-border-hover: #34344d;
-    --ink: #e8e8f0;
-    --ink-dim: #9a9aae;
-    --ink-faint: #62627a;
-    --accent: #6366f1;
-    --accent-soft: #818cf8;
-    --glow: rgba(99, 102, 241, 0.13);
-    --green: #34d399;
-    --mono: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace;
+    --bg: #101010;
+    --bg-soft: #161615;
+    --ink: #ece9e2;
+    --ink-dim: #a8a49a;
+    --ink-faint: #6e6a61;
+    --gold: #c2a15c;
+    --line: #2a2925;
+    --serif: 'EB Garamond', Georgia, serif;
+    --sans: 'Inter', -apple-system, sans-serif;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body {
-    background: var(--bg);
-    color: var(--ink);
-    font: 16px/1.65 -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-  .wrap { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+  body { background: var(--bg); color: var(--ink); font: 16px/1.7 var(--sans); -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 28px; }
 
-  /* ---- hero ---- */
-  .hero {
-    position: relative;
-    padding: 110px 0 80px;
+  .label {
+    font-family: var(--sans); font-size: 11px; font-weight: 600;
+    letter-spacing: .28em; text-transform: uppercase; color: var(--gold);
   }
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -220px; left: 50%;
-    transform: translateX(-50%);
-    width: 900px; height: 520px;
-    background: radial-gradient(ellipse at center, var(--glow) 0%, transparent 65%);
-    pointer-events: none;
-  }
-  .badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 13px; color: var(--ink-dim);
-    border: 1px solid var(--card-border);
-    background: var(--bg-soft);
-    padding: 6px 14px; border-radius: 99px;
-    margin-bottom: 28px;
-  }
-  .badge .dot {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: var(--green);
-    box-shadow: 0 0 8px var(--green);
-    animation: pulse 2.4s infinite;
-  }
-  @keyframes pulse { 50% { opacity: .45; } }
+
+  header.hero { padding: 130px 0 90px; text-align: center; border-bottom: 1px solid var(--line); }
+  .hero .label { margin-bottom: 34px; display: block; }
   h1 {
-    font-size: clamp(38px, 6vw, 60px);
-    font-weight: 700; letter-spacing: -0.03em; line-height: 1.08;
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(42px, 7vw, 72px); line-height: 1.12; letter-spacing: .01em;
   }
-  h1 .accent {
-    background: linear-gradient(100deg, var(--accent-soft), var(--accent) 60%);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
+  h1 em { font-style: italic; color: var(--gold); }
+  .hero .sub {
+    margin: 34px auto 0; max-width: 560px;
+    font-family: var(--serif); font-size: 20px; line-height: 1.6; color: var(--ink-dim);
   }
-  .sub {
-    margin-top: 22px; max-width: 640px;
-    font-size: 18px; color: var(--ink-dim);
+  .hero .meta {
+    margin-top: 44px; display: flex; justify-content: center; flex-wrap: wrap;
+    gap: 10px 34px; font-size: 12.5px; letter-spacing: .06em; color: var(--ink-faint);
   }
-  .sub strong { color: var(--ink); font-weight: 600; }
-  .meta {
-    margin-top: 26px; display: flex; flex-wrap: wrap; gap: 10px 22px;
-    font-size: 14px; color: var(--ink-faint);
-  }
-  .meta span { display: inline-flex; align-items: center; gap: 7px; }
-  .cta { margin-top: 38px; display: flex; flex-wrap: wrap; gap: 14px; }
+  .cta { margin-top: 52px; display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; }
   .btn {
-    display: inline-flex; align-items: center; gap: 9px;
-    padding: 12px 22px; border-radius: 10px;
-    font-size: 15px; font-weight: 600; text-decoration: none;
-    transition: all .18s ease;
+    font-family: var(--sans); font-size: 12.5px; font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase; text-decoration: none;
+    padding: 15px 34px; transition: all .25s ease;
   }
-  .btn-primary {
-    background: var(--accent); color: #fff;
-    box-shadow: 0 4px 24px rgba(99, 102, 241, .35);
-  }
-  .btn-primary:hover { background: var(--accent-soft); transform: translateY(-1px); }
-  .btn-ghost {
-    color: var(--ink); border: 1px solid var(--card-border);
-    background: var(--bg-soft);
-  }
-  .btn-ghost:hover { border-color: var(--card-border-hover); transform: translateY(-1px); }
+  .btn-solid { background: var(--gold); color: #14120c; }
+  .btn-solid:hover { background: #d4b876; }
+  .btn-line { color: var(--ink); border: 1px solid var(--line); }
+  .btn-line:hover { border-color: var(--gold); color: var(--gold); }
 
-  /* ---- sections ---- */
-  section { padding: 64px 0; }
-  .kicker {
-    font-family: var(--mono); font-size: 13px; letter-spacing: .12em;
-    text-transform: uppercase; color: var(--accent-soft);
-    margin-bottom: 12px;
-  }
+  section { padding: 90px 0; border-bottom: 1px solid var(--line); }
   h2 {
-    font-size: clamp(26px, 4vw, 34px);
-    font-weight: 700; letter-spacing: -0.02em; margin-bottom: 14px;
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(30px, 4.4vw, 42px); margin: 14px 0 60px;
   }
-  .lede { color: var(--ink-dim); max-width: 620px; margin-bottom: 42px; }
 
-  /* ---- product cards ---- */
-  .grid { display: grid; gap: 20px; }
-  .card {
-    background: var(--card);
-    border: 1px solid var(--card-border);
-    border-radius: 16px;
-    padding: 30px;
-    transition: border-color .2s ease, transform .2s ease;
+  .work { display: flex; flex-direction: column; }
+  .piece { display: grid; grid-template-columns: 88px 1fr; gap: 26px; padding: 44px 0; }
+  .piece + .piece { border-top: 1px solid var(--line); }
+  .piece .no {
+    font-family: var(--serif); font-size: 30px; color: var(--gold); font-style: italic; line-height: 1.2;
   }
-  .card:hover { border-color: var(--card-border-hover); transform: translateY(-2px); }
-  .card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
-  .card h3 { font-size: 21px; font-weight: 700; letter-spacing: -0.01em; }
-  .tag {
-    font-family: var(--mono); font-size: 11.5px;
-    color: var(--ink-dim); border: 1px solid var(--card-border);
-    padding: 4px 10px; border-radius: 99px; white-space: nowrap;
+  .piece h3 { font-family: var(--serif); font-size: 27px; font-weight: 500; }
+  .piece .status {
+    display: inline-block; margin-left: 14px; vertical-align: middle;
+    font-size: 10.5px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-faint);
   }
-  .tag.live { color: var(--green); border-color: rgba(52, 211, 153, .25); }
-  .card p { color: var(--ink-dim); font-size: 15px; margin-bottom: 16px; }
-  .card p strong { color: var(--ink); }
-  .facts { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
-  .fact {
-    font-size: 13px; color: var(--ink-dim);
-    background: var(--bg-soft); border: 1px solid var(--card-border);
-    padding: 5px 12px; border-radius: 8px;
+  .piece p { margin-top: 14px; color: var(--ink-dim); max-width: 620px; }
+  .piece p strong { color: var(--ink); font-weight: 500; }
+  .piece .tech {
+    margin-top: 18px; font-size: 12px; letter-spacing: .08em; color: var(--ink-faint);
   }
-  .fact b { color: var(--ink); font-weight: 600; }
-  .stack { font-family: var(--mono); font-size: 12.5px; color: var(--ink-faint); }
-  .card a.repo {
-    display: inline-flex; align-items: center; gap: 7px;
-    margin-top: 16px; font-size: 14px; font-weight: 600;
-    color: var(--accent-soft); text-decoration: none;
-  }
-  .card a.repo:hover { color: #a5b4fc; }
+  .piece a { color: var(--gold); text-decoration: none; font-size: 13.5px; letter-spacing: .04em; }
+  .piece a:hover { text-decoration: underline; }
 
-  /* ---- edge / about ---- */
-  .edge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
-  .edge {
-    background: var(--card); border: 1px solid var(--card-border);
-    border-radius: 14px; padding: 24px;
-  }
-  .edge .num { font-family: var(--mono); font-size: 12px; color: var(--accent-soft); margin-bottom: 10px; }
-  .edge h4 { font-size: 16px; margin-bottom: 8px; }
-  .edge p { font-size: 14px; color: var(--ink-dim); }
+  .tenets { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .tenet { background: var(--bg); padding: 38px 32px; }
+  .tenet h4 { font-family: var(--serif); font-size: 20px; font-weight: 500; margin-bottom: 12px; }
+  .tenet p { font-size: 14.5px; color: var(--ink-dim); }
 
-  /* ---- footer / contact ---- */
-  footer {
-    border-top: 1px solid var(--card-border);
-    padding: 64px 0 80px; text-align: center;
-  }
-  footer h2 { margin-bottom: 10px; }
-  footer .lede { margin: 0 auto 34px; }
-  .foot-note { margin-top: 46px; font-size: 13px; color: var(--ink-faint); }
-  .foot-note a { color: var(--ink-dim); text-decoration: none; }
+  footer { padding: 100px 0 110px; text-align: center; }
+  footer h2 { margin-bottom: 18px; }
+  footer .sub { font-family: var(--serif); font-size: 19px; color: var(--ink-dim); margin-bottom: 48px; }
+  .foot-note { margin-top: 60px; font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-faint); }
 
-  @media (max-width: 640px) {
-    .hero { padding: 70px 0 50px; }
-    section { padding: 44px 0; }
-    .card { padding: 22px; }
+  @media (max-width: 620px) {
+    header.hero { padding: 80px 0 60px; }
+    section { padding: 60px 0; }
+    .piece { grid-template-columns: 1fr; gap: 8px; }
   }
 </style>
 </head>
@@ -179,113 +105,84 @@
 
 <div class="wrap">
   <header class="hero">
-    <div class="badge"><span class="dot"></span> Open to remote roles — FDE · Solutions · AI Engineer</div>
-    <h1>I build and ship <span class="accent">AI products</span><br>end-to-end.</h1>
-    <p class="sub">
-      <strong>Lucas Llerena</strong> — AI Product Engineer with a business-management past:
-      10+ years running operations, teams and R$2M+ budgets. Now I design, build, secure,
-      and sell software — alone, from first commit to first customer.
-    </p>
+    <span class="label">Lucas Llerena · AI Product Engineer</span>
+    <h1>Software that earns<br>its keep, <em>shipped alone.</em></h1>
+    <p class="sub">A decade running operations, teams and seven-figure budgets —
+    now designing, building and selling AI products end-to-end, from first commit
+    to first paying customer.</p>
     <div class="meta">
-      <span>📍 Rio de Janeiro (GMT-3)</span>
-      <span>🇫🇷🇧🇷 French &amp; Brazilian citizen — EU + Brazil work rights</span>
-      <span>🗣 EN · FR · PT · ES</span>
+      <span>Rio de Janeiro · GMT−3</span>
+      <span>French &amp; Brazilian citizen — EU + Brazil work rights</span>
+      <span>EN · FR · PT · ES</span>
     </div>
     <div class="cta">
-      <a class="btn btn-primary" href="mailto:llerenalucas@gmail.com">Get in touch</a>
-      <a class="btn btn-ghost" href="cv.pdf">Download CV</a>
-      <a class="btn btn-ghost" href="https://github.com/LucasLlerena">GitHub</a>
+      <a class="btn btn-solid" href="mailto:llerenalucas@gmail.com">Get in touch</a>
+      <a class="btn btn-line" href="cv.pdf">Curriculum Vitae</a>
     </div>
   </header>
 
-  <section id="products">
-    <div class="kicker">Shipped products</div>
-    <h2>Real products, real customers</h2>
-    <p class="lede">Built solo in 2026 — architecture, code, security, infrastructure,
-      packaging, pricing, and the customer conversations.</p>
-
-    <div class="grid">
-      <div class="card">
-        <div class="card-top">
-          <h3>ListPro</h3>
-          <span class="tag live">● in production — client in paid trial</span>
+  <section>
+    <span class="label">Selected work</span>
+    <h2>Built solo. Sold for real.</h2>
+    <div class="work">
+      <div class="piece">
+        <div class="no">I.</div>
+        <div>
+          <h3>ListPro <span class="status">In production — client in paid trial</span></h3>
+          <p>Listing-generation SaaS for Brazilian marketplaces. Sellers import a catalog and
+          receive marketplace-compliant listings backed by <strong>verified compatibility data —
+          the system never invents facts.</strong> Server-side LLM proxy, hardware-bound RS256
+          licensing, standalone distribution.</p>
+          <div class="tech">Python · Flask · JWT/RS256 · LLM APIs · PyInstaller · Railway</div>
         </div>
-        <p>AI listing-generation SaaS for Brazilian marketplaces (Mercado Livre, Shopee, Amazon).
-        Sellers import a catalog (CSV/Excel/NF-e XML) and get marketplace-compliant listings with
-        verified part-compatibility data — <strong>the AI never invents fitment</strong>, it only uses a
-        verified database.</p>
-        <div class="facts">
-          <span class="fact"><b>LLM proxy</b> — API keys never leave the server</span>
-          <span class="fact"><b>RS256 licensing</b> — hardware-bound, forge-proof</span>
-          <span class="fact"><b>Standalone .exe</b> — zero-install distribution</span>
-          <span class="fact"><b>Usage caps + feedback loop</b> per license</span>
-        </div>
-        <div class="stack">Python · Flask · SQLite · JWT/RS256 · LLM APIs · PyInstaller · Railway</div>
       </div>
-
-      <div class="card">
-        <div class="card-top">
-          <h3>RadarGov</h3>
-          <span class="tag live">● sold as monthly license</span>
+      <div class="piece">
+        <div class="no">II.</div>
+        <div>
+          <h3>RadarGov <span class="status">Sold as monthly license</span></h3>
+          <p>Desktop intelligence tool monitoring government procurement through public APIs,
+          classifying tenders by relevance so suppliers find contracts they would never see manually.
+          Licensing server, signed offline cache, silent auto-update.</p>
+          <div class="tech">Python · pywebview · PostgreSQL · Render · PyInstaller</div>
         </div>
-        <p>Desktop app that monitors Brazilian government procurement tenders through public APIs
-        (PNCP, TCE-RJ), classifies them by industry relevance, and alerts suppliers — so small
-        companies find contracts they'd never see manually.</p>
-        <div class="facts">
-          <span class="fact"><b>Licensing server</b> — Render + PostgreSQL</span>
-          <span class="fact"><b>HMAC-signed offline cache</b> — 7-day grace</span>
-          <span class="fact"><b>Auto-update</b> — clients notified in-app</span>
-          <span class="fact"><b>Native Windows UI</b> — pywebview</span>
-        </div>
-        <div class="stack">Python · pywebview · Flask · PostgreSQL (Neon) · Render · PyInstaller</div>
       </div>
-
-      <div class="card">
-        <div class="card-top">
-          <h3>video-edit-agent</h3>
-          <span class="tag">open source</span>
+      <div class="piece">
+        <div class="no">III.</div>
+        <div>
+          <h3>video-edit-agent <span class="status">Open source</span></h3>
+          <p>Automated editing pipeline: raw footage to finished short-form video in six steps —
+          local transcription, filler removal, captions, music, export. <strong>Cuts raw runtime
+          44%</strong> at zero cloud cost.</p>
+          <div class="tech">Python · ffmpeg · Whisper · GitHub Actions</div>
+          <p style="margin-top:12px"><a href="https://github.com/LucasLlerena/video-edit-agent">View source →</a></p>
         </div>
-        <p>Automated video-editing pipeline: raw footage in → finished short/long video out, in six
-        steps. Local Whisper transcription, filler-word and silence removal, karaoke captions,
-        music bed, per-format export. <strong>Cuts raw runtime −44%</strong> with zero cloud cost.</p>
-        <div class="facts">
-          <span class="fact"><b>100% local</b> — no API, no cloud</span>
-          <span class="fact"><b>CI-tested</b> pure-logic core</span>
-          <span class="fact"><b>Agent-driven</b> — orchestrated via Claude Code skill</span>
-        </div>
-        <div class="stack">Python · ffmpeg · faster-whisper · ASS subtitles · GitHub Actions</div>
-        <a class="repo" href="https://github.com/LucasLlerena/video-edit-agent">View on GitHub →</a>
       </div>
     </div>
   </section>
 
-  <section id="edge">
-    <div class="kicker">Why me</div>
-    <h2>The hybrid most teams are missing</h2>
-    <div class="edge-grid">
-      <div class="edge">
-        <div class="num">01</div>
-        <h4>I ship, not prototype</h4>
-        <p>Licensing, security, packaging, deployment, updates — the unglamorous 80% between
-        "demo" and "product a customer pays for."</p>
+  <section>
+    <span class="label">Approach</span>
+    <h2>What a decade of operating teaches</h2>
+    <div class="tenets">
+      <div class="tenet">
+        <h4>Ship the unglamorous 80%</h4>
+        <p>Licensing, security, packaging, updates — the distance between a demo and a product
+        someone pays for.</p>
       </div>
-      <div class="edge">
-        <div class="num">02</div>
-        <h4>I speak business natively</h4>
-        <p>Business degree + a decade managing real operations and budgets. I understand the
-        problem before writing the solution.</p>
+      <div class="tenet">
+        <h4>Business first, code second</h4>
+        <p>Business degree, ten years of P&amp;L responsibility. The problem gets understood
+        before the solution gets written.</p>
       </div>
-      <div class="edge">
-        <div class="num">03</div>
-        <h4>I face customers in 4 languages</h4>
-        <p>Native French and Portuguese, C1 English, fluent Spanish. EU + Brazil work rights,
-        US-friendly timezone.</p>
+      <div class="tenet">
+        <h4>Four languages, three markets</h4>
+        <p>Client-facing in English, French, Portuguese and Spanish. EU and Brazil work rights,
+        US-friendly hours.</p>
       </div>
-      <div class="edge">
-        <div class="num">04</div>
-        <h4>I run on agents</h4>
-        <p>My daily workflow is agentic — Claude Code drives my pipelines, skills, and
-        automation. I build AI systems the way I use them: end-to-end.</p>
+      <div class="tenet">
+        <h4>Agent-driven by default</h4>
+        <p>Daily workflow built on agentic tooling — the systems I ship are built the way
+        I work: end-to-end, automated, verified.</p>
       </div>
     </div>
   </section>
@@ -293,16 +190,15 @@
 
 <footer>
   <div class="wrap">
-    <div class="kicker">Contact</div>
-    <h2>Let's build something real</h2>
-    <p class="lede">Remote-first. Open to Forward Deployed, Solutions, AI Engineer, and
-      Founding Engineer roles.</p>
-    <div class="cta" style="justify-content:center">
-      <a class="btn btn-primary" href="mailto:llerenalucas@gmail.com">llerenalucas@gmail.com</a>
-      <a class="btn btn-ghost" href="https://github.com/LucasLlerena">GitHub</a>
-      <a class="btn btn-ghost" href="https://www.linkedin.com/in/lucasllerena">LinkedIn</a>
+    <span class="label">Contact</span>
+    <h2>A conversation costs nothing.</h2>
+    <p class="sub">Remote-first · Forward Deployed, Solutions &amp; AI Engineering roles</p>
+    <div class="cta">
+      <a class="btn btn-solid" href="mailto:llerenalucas@gmail.com">llerenalucas@gmail.com</a>
+      <a class="btn btn-line" href="https://github.com/LucasLlerena">GitHub</a>
+      <a class="btn btn-line" href="https://www.linkedin.com/in/lucasllerena">LinkedIn</a>
     </div>
-    <p class="foot-note">Lucas Davée Guimarães Llerena · Rio de Janeiro · © 2026</p>
+    <p class="foot-note">Lucas Davée Guimarães Llerena — MMXXVI</p>
   </div>
 </footer>
 

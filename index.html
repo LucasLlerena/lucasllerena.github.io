@@ -10,7 +10,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23101010'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-style='italic' font-size='34' fill='%23c2a15c' text-anchor='middle'%3ELL%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #101010;
@@ -19,46 +19,131 @@
     --ink-dim: #a8a49a;
     --ink-faint: #6e6a61;
     --gold: #c2a15c;
+    --gold-bright: #e3c47e;
     --line: #2a2925;
     --serif: 'EB Garamond', Georgia, serif;
     --sans: 'Inter', -apple-system, sans-serif;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { background: var(--bg); color: var(--ink); font: 16px/1.7 var(--sans); -webkit-font-smoothing: antialiased; }
-  .wrap { max-width: 880px; margin: 0 auto; padding: 0 28px; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font: 16px/1.7 var(--sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 28px; position: relative; }
+
+  /* ── scroll progress ── */
+  #progress {
+    position: fixed; top: 0; left: 0; height: 2px; width: 100%;
+    transform-origin: 0 50%; transform: scaleX(0);
+    background: linear-gradient(90deg, var(--gold), var(--gold-bright));
+    z-index: 50;
+  }
+
+  /* ── golden light sweep across the page ── */
+  .sheen {
+    position: fixed; inset: -40%;
+    pointer-events: none; z-index: 0;
+    background: linear-gradient(115deg,
+      transparent 42%,
+      rgba(194, 161, 92, 0.045) 50%,
+      transparent 58%);
+    animation: sweep 15s ease-in-out infinite;
+  }
+  @keyframes sweep {
+    0%   { transform: translateX(-28%) }
+    50%  { transform: translateX(28%) }
+    100% { transform: translateX(-28%) }
+  }
+
+  /* ── cursor spotlight (hero) ── */
+  #spot {
+    position: fixed; width: 700px; height: 700px;
+    left: 0; top: 0; pointer-events: none; z-index: 0;
+    background: radial-gradient(circle, rgba(214, 178, 106, 0.09) 0%, transparent 60%);
+    transform: translate(-50%, -50%);
+    opacity: 0; transition: opacity .8s ease;
+  }
+
+  main { position: relative; z-index: 1; }
 
   .label {
     font-family: var(--sans); font-size: 11px; font-weight: 600;
     letter-spacing: .28em; text-transform: uppercase; color: var(--gold);
   }
 
-  header.hero { padding: 130px 0 90px; text-align: center; border-bottom: 1px solid var(--line); }
+  /* ── hero ── */
+  header.hero {
+    padding: 130px 0 80px; text-align: center;
+    border-bottom: 1px solid var(--line);
+    position: relative; overflow: hidden;
+  }
+  #dust { position: absolute; inset: 0; pointer-events: none; }
+  .hero > * { position: relative; }
+
   .hero .label { margin-bottom: 34px; display: block; }
   h1 {
     font-family: var(--serif); font-weight: 500;
     font-size: clamp(42px, 7vw, 72px); line-height: 1.12; letter-spacing: .01em;
   }
   h1 em { font-style: italic; color: var(--gold); }
+  h1 .line { display: block; overflow: hidden; }
+  h1 .line span { display: inline-block; }
+
   .hero .sub {
     margin: 34px auto 0; max-width: 560px;
     font-family: var(--serif); font-size: 20px; line-height: 1.6; color: var(--ink-dim);
   }
   .hero .meta {
-    margin-top: 44px; display: flex; justify-content: center; flex-wrap: wrap;
+    margin-top: 40px; display: flex; justify-content: center; flex-wrap: wrap;
     gap: 10px 34px; font-size: 12.5px; letter-spacing: .06em; color: var(--ink-faint);
   }
-  .cta { margin-top: 52px; display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; }
+  .cta { margin-top: 48px; display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; }
   .btn {
     font-family: var(--sans); font-size: 12.5px; font-weight: 600;
     letter-spacing: .14em; text-transform: uppercase; text-decoration: none;
-    padding: 15px 34px; transition: all .25s ease;
+    padding: 15px 34px; transition: all .25s ease; position: relative; overflow: hidden;
   }
   .btn-solid { background: var(--gold); color: #14120c; }
-  .btn-solid:hover { background: #d4b876; }
+  .btn-solid:hover { background: var(--gold-bright); box-shadow: 0 6px 30px rgba(194,161,92,.25); }
   .btn-line { color: var(--ink); border: 1px solid var(--line); }
   .btn-line:hover { border-color: var(--gold); color: var(--gold); }
 
+  /* hero load choreography */
+  .hero .label, .hero .sub, .hero .meta, .hero .cta {
+    opacity: 0; transform: translateY(18px);
+    animation: rise .9s cubic-bezier(.2,.65,.25,1) forwards;
+  }
+  .hero .label { animation-delay: .1s; }
+  h1 .line span { transform: translateY(110%); animation: lineup 1s cubic-bezier(.2,.65,.2,1) forwards; }
+  h1 .line:nth-child(1) span { animation-delay: .25s; }
+  h1 .line:nth-child(2) span { animation-delay: .42s; }
+  .hero .sub  { animation-delay: .75s; }
+  .hero .meta { animation-delay: .9s; }
+  .hero .cta  { animation-delay: 1.05s; }
+  @keyframes rise   { to { opacity: 1; transform: translateY(0) } }
+  @keyframes lineup { to { transform: translateY(0) } }
+
+  /* ── stats band ── */
+  .stats {
+    border-bottom: 1px solid var(--line);
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  }
+  .stat { padding: 42px 20px; text-align: center; border-right: 1px solid var(--line); }
+  .stat:last-child { border-right: none; }
+  .stat .num {
+    font-family: var(--serif); font-size: clamp(38px, 5vw, 52px);
+    font-weight: 500; color: var(--gold); line-height: 1.1; font-variant-numeric: tabular-nums;
+  }
+  .stat .num sup { font-size: .5em; margin-left: 2px; }
+  .stat .cap {
+    margin-top: 8px; font-size: 11px; font-weight: 600;
+    letter-spacing: .2em; text-transform: uppercase; color: var(--ink-faint);
+  }
+
+  /* ── sections ── */
   section { padding: 90px 0; border-bottom: 1px solid var(--line); }
   h2 {
     font-family: var(--serif); font-weight: 500;
@@ -66,26 +151,38 @@
   }
 
   .work { display: flex; flex-direction: column; }
-  .piece { display: grid; grid-template-columns: 88px 1fr; gap: 26px; padding: 44px 0; }
+  .piece {
+    display: grid; grid-template-columns: 88px 1fr; gap: 26px;
+    padding: 44px 0; position: relative;
+  }
   .piece + .piece { border-top: 1px solid var(--line); }
   .piece .no {
     font-family: var(--serif); font-size: 30px; color: var(--gold); font-style: italic; line-height: 1.2;
+  }
+  .piece .ghost {
+    position: absolute; right: -10px; top: 50%;
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(120px, 22vw, 230px); line-height: 1;
+    color: rgba(194, 161, 92, 0.05); pointer-events: none; user-select: none;
+    transform: translateY(-50%); will-change: transform;
   }
   .piece h3 { font-family: var(--serif); font-size: 27px; font-weight: 500; }
   .piece .status {
     display: inline-block; margin-left: 14px; vertical-align: middle;
     font-size: 10.5px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-faint);
   }
-  .piece p { margin-top: 14px; color: var(--ink-dim); max-width: 620px; }
+  .piece p { margin-top: 14px; color: var(--ink-dim); max-width: 620px; position: relative; }
   .piece p strong { color: var(--ink); font-weight: 500; }
-  .piece .tech {
-    margin-top: 18px; font-size: 12px; letter-spacing: .08em; color: var(--ink-faint);
-  }
-  .piece a { color: var(--gold); text-decoration: none; font-size: 13.5px; letter-spacing: .04em; }
+  .piece .tech { margin-top: 18px; font-size: 12px; letter-spacing: .08em; color: var(--ink-faint); position: relative; }
+  .piece a { color: var(--gold); text-decoration: none; font-size: 13.5px; letter-spacing: .04em; position: relative; }
   .piece a:hover { text-decoration: underline; }
 
-  .tenets { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
-  .tenet { background: var(--bg); padding: 38px 32px; }
+  .tenets {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1px; background: var(--line); border: 1px solid var(--line);
+  }
+  .tenet { background: var(--bg); padding: 38px 32px; transition: background .4s ease; }
+  .tenet:hover { background: var(--bg-soft); }
   .tenet h4 { font-family: var(--serif); font-size: 20px; font-weight: 500; margin-bottom: 12px; }
   .tenet p { font-size: 14.5px; color: var(--ink-dim); }
 
@@ -94,19 +191,43 @@
   footer .sub { font-family: var(--serif); font-size: 19px; color: var(--ink-dim); margin-bottom: 48px; }
   .foot-note { margin-top: 60px; font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-faint); }
 
+  /* ── scroll reveals ── */
+  .rv { opacity: 0; transform: translateY(26px); transition: opacity .9s cubic-bezier(.2,.65,.25,1), transform .9s cubic-bezier(.2,.65,.25,1); }
+  .rv.in { opacity: 1; transform: none; }
+  .rv-d1 { transition-delay: .08s } .rv-d2 { transition-delay: .16s }
+  .rv-d3 { transition-delay: .24s } .rv-d4 { transition-delay: .32s }
+
   @media (max-width: 620px) {
-    header.hero { padding: 80px 0 60px; }
+    header.hero { padding: 80px 0 56px; }
     section { padding: 60px 0; }
     .piece { grid-template-columns: 1fr; gap: 8px; }
+    .stat { padding: 30px 12px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sheen, #spot, #dust { display: none; }
+    .hero .label, .hero .sub, .hero .meta, .hero .cta { animation: none; opacity: 1; transform: none; }
+    h1 .line span { animation: none; transform: none; }
+    .rv { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
   }
 </style>
 </head>
 <body>
 
+<div id="progress"></div>
+<div class="sheen"></div>
+<div id="spot"></div>
+
+<main>
 <div class="wrap">
   <header class="hero">
+    <canvas id="dust"></canvas>
     <span class="label">Lucas Llerena · AI Product Engineer</span>
-    <h1>Software that earns<br>its keep, <em>shipped alone.</em></h1>
+    <h1>
+      <span class="line"><span>Software that earns</span></span>
+      <span class="line"><span>its keep, <em>shipped alone.</em></span></span>
+    </h1>
     <p class="sub">A decade running operations, teams and seven-figure budgets —
     now designing, building and selling AI products end-to-end, from first commit
     to first paying customer.</p>
@@ -121,11 +242,19 @@
     </div>
   </header>
 
+  <div class="stats">
+    <div class="stat rv"><div class="num" data-count="10" data-suffix="+">0</div><div class="cap">Years operating</div></div>
+    <div class="stat rv rv-d1"><div class="num" data-count="2">0</div><div class="cap">Products in production</div></div>
+    <div class="stat rv rv-d2"><div class="num" data-count="4">0</div><div class="cap">Languages</div></div>
+    <div class="stat rv rv-d3"><div class="num" data-count="44" data-prefix="−" data-suffix="%">0</div><div class="cap">Raw runtime, cut</div></div>
+  </div>
+
   <section>
-    <span class="label">Selected work</span>
-    <h2>Built solo. Sold for real.</h2>
+    <span class="label rv">Selected work</span>
+    <h2 class="rv rv-d1">Built solo. Sold for real.</h2>
     <div class="work">
-      <div class="piece">
+      <div class="piece rv">
+        <div class="ghost" aria-hidden="true">I</div>
         <div class="no">I.</div>
         <div>
           <h3>ListPro <span class="status">In production — client in paid trial</span></h3>
@@ -136,7 +265,8 @@
           <div class="tech">Python · Flask · JWT/RS256 · LLM APIs · PyInstaller · Railway</div>
         </div>
       </div>
-      <div class="piece">
+      <div class="piece rv">
+        <div class="ghost" aria-hidden="true">II</div>
         <div class="no">II.</div>
         <div>
           <h3>RadarGov <span class="status">Sold as monthly license</span></h3>
@@ -146,7 +276,8 @@
           <div class="tech">Python · pywebview · PostgreSQL · Render · PyInstaller</div>
         </div>
       </div>
-      <div class="piece">
+      <div class="piece rv">
+        <div class="ghost" aria-hidden="true">III</div>
         <div class="no">III.</div>
         <div>
           <h3>video-edit-agent <span class="status">Open source</span></h3>
@@ -161,25 +292,25 @@
   </section>
 
   <section>
-    <span class="label">Approach</span>
-    <h2>What a decade of operating teaches</h2>
+    <span class="label rv">Approach</span>
+    <h2 class="rv rv-d1">What a decade of operating teaches</h2>
     <div class="tenets">
-      <div class="tenet">
+      <div class="tenet rv">
         <h4>Ship the unglamorous 80%</h4>
         <p>Licensing, security, packaging, updates — the distance between a demo and a product
         someone pays for.</p>
       </div>
-      <div class="tenet">
+      <div class="tenet rv rv-d1">
         <h4>Business first, code second</h4>
         <p>Business degree, ten years of P&amp;L responsibility. The problem gets understood
         before the solution gets written.</p>
       </div>
-      <div class="tenet">
+      <div class="tenet rv rv-d2">
         <h4>Four languages, three markets</h4>
         <p>Client-facing in English, French, Portuguese and Spanish. EU and Brazil work rights,
         US-friendly hours.</p>
       </div>
-      <div class="tenet">
+      <div class="tenet rv rv-d3">
         <h4>Agent-driven by default</h4>
         <p>Daily workflow built on agentic tooling — the systems I ship are built the way
         I work: end-to-end, automated, verified.</p>
@@ -190,17 +321,144 @@
 
 <footer>
   <div class="wrap">
-    <span class="label">Contact</span>
-    <h2>A conversation costs nothing.</h2>
-    <p class="sub">Remote-first · Forward Deployed, Solutions &amp; AI Engineering roles</p>
-    <div class="cta">
+    <span class="label rv">Contact</span>
+    <h2 class="rv rv-d1">A conversation costs nothing.</h2>
+    <p class="sub rv rv-d2">Remote-first · Forward Deployed, Solutions &amp; AI Engineering roles</p>
+    <div class="cta rv rv-d3" style="opacity:0">
       <a class="btn btn-solid" href="mailto:llerenalucas@gmail.com">llerenalucas@gmail.com</a>
       <a class="btn btn-line" href="https://github.com/LucasLlerena">GitHub</a>
       <a class="btn btn-line" href="https://www.linkedin.com/in/lucasllerena">LinkedIn</a>
     </div>
-    <p class="foot-note">Lucas Davée Guimarães Llerena — MMXXVI</p>
+    <p class="foot-note rv">Lucas Davée Guimarães Llerena — MMXXVI</p>
   </div>
 </footer>
+</main>
+
+<script>
+(function () {
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* footer .cta reuses hero animation names; neutralize (footer is reveal-driven) */
+  document.querySelectorAll('footer .cta, footer .sub').forEach(function (el) {
+    el.style.animation = 'none';
+  });
+
+  /* ── scroll reveals ── */
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.18, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.rv').forEach(function (el) {
+    el.style.opacity = '';           /* clear inline fallback */
+    io.observe(el);
+  });
+
+  /* ── count-up stats ── */
+  function countUp(el) {
+    var target = parseInt(el.getAttribute('data-count'), 10);
+    var prefix = el.getAttribute('data-prefix') || '';
+    var suffix = el.getAttribute('data-suffix') || '';
+    if (reduced) { el.textContent = prefix + target + suffix; return; }
+    var t0 = null, dur = 1400;
+    function frame(t) {
+      if (!t0) t0 = t;
+      var p = Math.min((t - t0) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = prefix + Math.round(target * eased) + suffix;
+      if (p < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+  var cio = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { countUp(e.target); cio.unobserve(e.target); }
+    });
+  }, { threshold: 0.6 });
+  document.querySelectorAll('.num[data-count]').forEach(function (el) { cio.observe(el); });
+
+  /* ── scroll progress + ghost numeral parallax ── */
+  var prog = document.getElementById('progress');
+  var ghosts = Array.prototype.slice.call(document.querySelectorAll('.ghost'));
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      var doc = document.documentElement;
+      var max = doc.scrollHeight - window.innerHeight;
+      prog.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0) + ')';
+      if (!reduced) {
+        var vh = window.innerHeight;
+        ghosts.forEach(function (g) {
+          var r = g.parentElement.getBoundingClientRect();
+          var c = (r.top + r.height / 2 - vh / 2) / vh;   /* -1..1 */
+          g.style.transform = 'translateY(' + (-50 + c * 18) + '%)';
+        });
+      }
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  if (reduced) return;
+
+  /* ── cursor spotlight (desktop only) ── */
+  if (window.matchMedia('(pointer: fine)').matches) {
+    var spot = document.getElementById('spot');
+    var sx = innerWidth / 2, sy = innerHeight / 3, tx = sx, ty = sy, live = false;
+    document.addEventListener('mousemove', function (e) {
+      tx = e.clientX; ty = e.clientY;
+      if (!live) { live = true; spot.style.opacity = '1'; }
+    }, { passive: true });
+    (function loop() {
+      sx += (tx - sx) * 0.08; sy += (ty - sy) * 0.08;
+      spot.style.transform = 'translate(' + (sx - 350) + 'px,' + (sy - 350) + 'px)';
+      requestAnimationFrame(loop);
+    })();
+  }
+
+  /* ── gold dust in hero (desktop, sparse) ── */
+  if (window.matchMedia('(hover: hover)').matches) {
+    var cv = document.getElementById('dust'), ctx = cv.getContext('2d');
+    var hero = cv.parentElement, parts = [], N = 34, dpr = Math.min(devicePixelRatio || 1, 2);
+    function size() {
+      cv.width = hero.clientWidth * dpr; cv.height = hero.clientHeight * dpr;
+      cv.style.width = hero.clientWidth + 'px'; cv.style.height = hero.clientHeight + 'px';
+    }
+    size(); window.addEventListener('resize', size, { passive: true });
+    for (var i = 0; i < N; i++) {
+      parts.push({
+        x: Math.random(), y: Math.random(),
+        r: (Math.random() * 1.3 + 0.4) * dpr,
+        vx: (Math.random() - 0.5) * 0.00012,
+        vy: -(Math.random() * 0.00018 + 0.00005),
+        a: Math.random() * 0.5 + 0.15,
+        tw: Math.random() * Math.PI * 2
+      });
+    }
+    var heroVisible = true;
+    new IntersectionObserver(function (e) { heroVisible = e[0].isIntersecting; })
+      .observe(hero);
+    (function draw(t) {
+      requestAnimationFrame(draw);
+      if (!heroVisible) return;
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      parts.forEach(function (p) {
+        p.x += p.vx; p.y += p.vy;
+        if (p.y < -0.02) { p.y = 1.02; p.x = Math.random(); }
+        if (p.x < 0) p.x = 1; if (p.x > 1) p.x = 0;
+        var glow = p.a * (0.6 + 0.4 * Math.sin(t / 900 + p.tw));
+        ctx.beginPath();
+        ctx.arc(p.x * cv.width, p.y * cv.height, p.r, 0, 6.283);
+        ctx.fillStyle = 'rgba(214, 178, 106,' + glow.toFixed(3) + ')';
+        ctx.fill();
+      });
+    })(0);
+  }
+})();
+</script>
 
 </body>
 </html>
